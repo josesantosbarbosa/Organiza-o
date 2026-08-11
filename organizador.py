@@ -11,17 +11,17 @@ Exemplo: "foto.jpg" vai para a pasta "Imagens".
 import os
 import shutil
 
-# Dicionário: cada categoria tem uma lista de extensões
+# Dicionário
 CATEGORIAS = {
     "Imagens": [".jpg", ".jpeg", ".png"],
     "Documentos": [".pdf", ".docx", ".txt"],
     "Planilhas": [".xlsx", ".csv"],
 }
 
-# Pergunta ao usuário qual pasta organizar
+
 pasta = input("Digite o caminho da pasta: ").strip()
 
-# Percorre cada arquivo dentro da pasta
+# lista os arquivos
 for nome_arquivo in os.listdir(pasta):
     caminho_arquivo = os.path.join(pasta, nome_arquivo)
 
@@ -29,10 +29,10 @@ for nome_arquivo in os.listdir(pasta):
     if os.path.isdir(caminho_arquivo):
         continue
 
-    # Pega a extensão do arquivo (ex: ".jpg")
+    # splita e converte a extenção para minusculo
     extensao = os.path.splitext(nome_arquivo)[1].lower()
 
-    # Descobre em qual categoria essa extensão se encaixa
+    
     categoria_encontrada = "Outros"
     for categoria, extensoes in CATEGORIAS.items():
         if extensao in extensoes:
@@ -43,7 +43,7 @@ for nome_arquivo in os.listdir(pasta):
     pasta_destino = os.path.join(pasta, categoria_encontrada)
     os.makedirs(pasta_destino, exist_ok=True)
 
-    # Move o arquivo para a subpasta
+    # Move
     shutil.move(caminho_arquivo, os.path.join(pasta_destino, nome_arquivo))
     print(f"{nome_arquivo} -> {categoria_encontrada}/")
 
